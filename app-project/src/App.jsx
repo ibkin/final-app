@@ -34,6 +34,20 @@ import ToDoFilter from './components/ToDoFiter';
 import {useState} from 'react';
 import { STATUS } from './config/status';
 import './App.css';
+import '@ant-design/v5-patch-for-react-19';
+import { unstableSetRender } from 'antd';
+import { createRoot } from 'react-dom/client';
+
+unstableSetRender((node, container) => {
+  container._reactRoot ||= createRoot(container);
+  const root = container._reactRoot;
+  root.render(node);
+  return async () => {
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    root.unmount();
+  };
+});
+
 
 function App() {
 
